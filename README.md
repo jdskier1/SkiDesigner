@@ -3,7 +3,8 @@ Ski Designer is a Python CAD/CAM tool for designing custom skis, molds, layups, 
 
 This project is licensed under the GNU General Public License v3.0.
 
-The only library needed besides python's built in ones is pyside6.
+The only library needed besides python's built in ones is pyside6. Once you've installed python3 from python.org, and assuming you have pip installer, run this command from the needed library: 
+python3 -m pip install PySide6
 
 You may use, study, modify, and distribute this software, but distributed modified versions must also be licensed under GPL-3.0 and include source code.
 
