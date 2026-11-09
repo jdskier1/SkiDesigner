@@ -1,0 +1,169 @@
+[
+  {
+    "name": "Altro",
+    "path": "macros/Altro.nc",
+    "steps": [
+      {
+        "axis": "X+",
+        "coolant": "Off",
+        "distance": 10.0,
+        "feed": 300.0,
+        "kind": "Move",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 1.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "axis": "X+",
+        "coolant": "Off",
+        "distance": 10.0,
+        "feed": 300.0,
+        "kind": "Move",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 1.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      }
+    ],
+    "mode": "Build Steps"
+  },
+  {
+    "name": "DynamicTest",
+    "path": "macros/DynamicTest.nc",
+    "steps": [
+      {
+        "axis": "Y-",
+        "coolant": "Flood + Mist",
+        "distance": 1500.0,
+        "feed": 2000.0,
+        "kind": "Coolant",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 0.25,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "adjust_on_load": [
+          "seconds"
+        ],
+        "axis": "X+",
+        "coolant": "Off",
+        "distance": 10.0,
+        "feed": 300.0,
+        "kind": "Pause",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 2.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "adjust_on_load": [
+          "distance",
+          "feed"
+        ],
+        "axis": "Y+",
+        "coolant": "Off",
+        "distance": 1500.0,
+        "feed": 2000.0,
+        "kind": "Move",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 2.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "axis": "Y-",
+        "coolant": "Off",
+        "distance": 1500.0,
+        "feed": 2000.0,
+        "kind": "Pause",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 0.25,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "adjust_on_load": [
+          "distance",
+          "feed"
+        ],
+        "axis": "Y-",
+        "coolant": "Off",
+        "distance": 1500.0,
+        "feed": 2000.0,
+        "kind": "Move",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 2.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      },
+      {
+        "axis": "Y-",
+        "coolant": "Off",
+        "distance": 1500.0,
+        "feed": 2000.0,
+        "kind": "Coolant",
+        "output_command": "",
+        "plane": "XY",
+        "radius": 10.0,
+        "rotation": "Clockwise",
+        "rpm": 10000.0,
+        "safe_z": 10.0,
+        "seconds": 2.0,
+        "spindle_action": "Off",
+        "start_angle": 0.0,
+        "sweep_angle": 90.0
+      }
+    ],
+    "mode": "Build Steps"
+  },
+  {
+    "name": "Freshy",
+    "path": "macros/Freshy.nc",
+    "steps": [],
+    "mode": "Link G-code File"
+  }
+]

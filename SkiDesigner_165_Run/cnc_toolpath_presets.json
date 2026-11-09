@@ -1,0 +1,41 @@
+{
+  "Test1": {
+    "operation_combo": "On Line",
+    "pocket_pattern_combo": "Parallel Lines",
+    "tool_diameter_spin": 6.35,
+    "additional_offset_spin": 0.0,
+    "pocket_stepover_spin": 0.0,
+    "parallel_rotate_check": false,
+    "safety_z_spin": 10.0,
+    "cut_depth_spin": 3.0,
+    "stepdown_spin": 1.0,
+    "feed_rate_spin": 1200.0,
+    "plunge_rate_spin": 300.0,
+    "spindle_spin": 18000.0,
+    "depth_mode_check": false,
+    "depth_profile_invert_check": true,
+    "ramp_entry_check": false,
+    "ramp_angle_spin": 3.0,
+    "ramp_feed_rate_spin": 450.0,
+    "helix_angle_spin": 3.0,
+    "_shape": "ski_outline",
+    "_machine": {
+      "start_x": 0.0,
+      "start_y": 0.0,
+      "workspace_x": 300.0,
+      "workspace_y": 2000.0,
+      "workspace_z": 100.0,
+      "workspace_move_x": 0.0,
+      "workspace_move_y": 0.0,
+      "workspace_move_z": 0.0,
+      "show_machine_boundary": false,
+      "preview_offset_ud": 775.0,
+      "preview_offset_lr": 75.0,
+      "preview_offset_z": 0.0,
+      "duplicate_enabled": false,
+      "duplicate_x": 0.0,
+      "duplicate_y": 0.0,
+      "mirror_depth_profile_horizontally": true
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "axes": {
+    "X": 0,
+    "Y": 1,
+    "Z": 3
+  },
+  "invert": {
+    "X": false,
+    "Y": false,
+    "Z": false
+  },
+  "buttons": {
+    "Hold to Jog": 13,
+    "Hold": -1,
+    "Cancel Jog": 15,
+    "Stop / Reset": 1,
+    "Start": 0,
+    "Resume": 5,
+    "Home": -1
+  },
+  "deadzone": 0.2,
+  "guid": "05005d8eac0500000400000046046d04"
+}
