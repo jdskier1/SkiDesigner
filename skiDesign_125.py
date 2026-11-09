@@ -5700,7 +5700,8 @@ class SkiShape(QGraphicsItem):
         if event.button() != Qt.MouseButton.LeftButton:
             super().mousePressEvent(event)
             return
-        hit,typ=self.find_hit(event.pos())
+        pos = event.pos()
+        hit, typ = self.find_hit(pos)
         if hit:
             self.push_undo()
         shift_held = bool(event.modifiers() & Qt.KeyboardModifier.ShiftModifier)
@@ -5712,8 +5713,8 @@ class SkiShape(QGraphicsItem):
             for p in [self.tip_seam_center, self.tail_seam_center] + self.tip_seam_points + self.tail_seam_points:
                 p.selected = False
             self.selection_box_active = True
-            self.selection_box_origin = QPointF(event.pos())
-            self.selection_box_current = QPointF(event.pos())
+            self.selection_box_origin = QPointF(pos)
+            self.selection_box_current = QPointF(pos)
             self.selection_box_additive = shift_held
             self.selection_box_toggle = False
             if not shift_held:
@@ -5757,7 +5758,7 @@ class SkiShape(QGraphicsItem):
         if not self.dragging_point:
             return
 
-        pos=event.pos()
+        pos = event.pos()
         p=self.dragging_point
 
         if self.drag_type == "point":
@@ -5851,24 +5852,25 @@ class SkiShape(QGraphicsItem):
         if event.button() != Qt.MouseButton.LeftButton:
             super().mouseDoubleClickEvent(event)
             return
+        pos = event.pos()
         if getattr(self, "profile_insert_key", None) == "camber":
-            self._insert_profile_point(self.camber_thickness_points, ControlPointCoreCamber1(QPointF(event.pos())))
+            self._insert_profile_point(self.camber_thickness_points, ControlPointCoreCamber1(QPointF(pos)))
             event.accept()
             return
         if getattr(self, "profile_insert_key", None) == "thickness":
-            self._insert_profile_point(self.core_thickness_points, ControlPointCoreThickness(QPointF(event.pos())))
+            self._insert_profile_point(self.core_thickness_points, ControlPointCoreThickness(QPointF(pos)))
             event.accept()
             return
         self.push_undo()
         if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-            new = CosmeticPoint(event.pos())
+            new = CosmeticPoint(pos)
             self._assign_point_uid(new)
             self.cosmetic_points.append(new)
             self._clear_regular_point_selection()
             new.selected = True
             self.multi_select_order = [new.uid]
         else:
-            new=ControlPointMid(event.pos())
+            new = ControlPointMid(pos)
             self._assign_point_uid(new)
             self.points.append(new)
             self.points.sort(key=lambda p:p.pos.y(), reverse=True)
@@ -6814,8 +6816,9 @@ class SkiView(QGraphicsView):
     def mousePressEvent(self,event):
         owner = getattr(self.ski_item, "owner_window", None)
         if owner is not None:
-            scene_pos = self.mapToScene(event.pos())
-            if owner.begin_main_window_cnc_3d_interaction(event.button(), scene_pos, event.pos()):
+            view_pos = event.position()
+            scene_pos = self.mapToScene(view_pos.toPoint())
+            if owner.begin_main_window_cnc_3d_interaction(event.button(), scene_pos, view_pos):
                 if event.button() == Qt.MouseButton.MiddleButton:
                     self.setCursor(Qt.CursorShape.ClosedHandCursor)
                 elif event.button() == Qt.MouseButton.LeftButton:
@@ -6824,7 +6827,7 @@ class SkiView(QGraphicsView):
                 return
         if event.button() == Qt.MouseButton.MiddleButton:
             self.panning = True
-            self.pan_start = event.pos()
+            self.pan_start = event.position()
             self.pan_constraint_axis = None
             self.setTransformationAnchor(QGraphicsView.ViewportAnchor.NoAnchor)
             self.setCursor(Qt.CursorShape.ClosedHandCursor)
@@ -6834,13 +6837,13 @@ class SkiView(QGraphicsView):
             if self.ski_item is not None:
                 self.ski_item.update_3d_background_center_cache()
             self.last_right_press_ms = int(QDateTime.currentMSecsSinceEpoch())
-            self.last_right_press_pos = QPointF(event.pos())
+            self.last_right_press_pos = QPointF(event.position())
             self.orbiting_3d = True
-            self.orbit_start = event.pos()
-            self.orbit_gesture_center = event.pos()
+            self.orbit_start = event.position()
+            self.orbit_gesture_center = event.position()
             self.orbit_constraint_axis = None
-            self.orbit_anchor_scene = self.mapToScene(event.pos())
-            self.orbit_pivot_model = self._pick_orbit_pivot_model(event.pos())
+            self.orbit_anchor_scene = self.mapToScene(event.position().toPoint())
+            self.orbit_pivot_model = self._pick_orbit_pivot_model(event.position().toPoint())
             self.setCursor(Qt.CursorShape.SizeAllCursor)
             event.accept()
             return
@@ -6848,14 +6851,14 @@ class SkiView(QGraphicsView):
 
     def mouseMoveEvent(self,event):
         owner = getattr(self.ski_item, "owner_window", None)
-        if owner is not None and owner.update_main_window_cnc_3d_interaction(event.pos(), event.modifiers()):
+        if owner is not None and owner.update_main_window_cnc_3d_interaction(event.position(), event.modifiers()):
             self._refresh_scale_overlay()
             event.accept()
             return
         if self.panning:
             if self.ski_item is not None:
                 self.ski_item.interaction_3d_active = True
-            raw_delta = event.pos() - self.pan_start
+            raw_delta = event.position() - self.pan_start
             dx = int(round(raw_delta.x()))
             dy = int(round(raw_delta.y()))
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
@@ -6864,7 +6867,7 @@ class SkiView(QGraphicsView):
                 dx, dy = self._constrain_delta(raw_delta, self.pan_constraint_axis)
             else:
                 self.pan_constraint_axis = None
-            self.pan_start = event.pos()
+            self.pan_start = event.position()
             self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() - dx)
             self.verticalScrollBar().setValue(self.verticalScrollBar().value() - dy)
             self._refresh_scale_overlay()
@@ -6875,7 +6878,7 @@ class SkiView(QGraphicsView):
             if self.ski_item is not None:
                 self.ski_item.interaction_3d_active = True
             previous_pos = self.orbit_start
-            self.orbit_start = event.pos()
+            self.orbit_start = event.position()
             self._set_orbit_angles_from_delta(previous_pos, self.orbit_start, event.modifiers())
             self._refresh_scale_overlay()
             event.accept()
